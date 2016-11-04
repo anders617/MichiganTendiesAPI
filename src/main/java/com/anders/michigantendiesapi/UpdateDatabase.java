@@ -7,13 +7,9 @@ package com.anders.michigantendiesapi;
 
 import java.sql.*;
 import javax.json.*;
-import java.net.*;
 import java.io.*;
-import java.util.Date;
 
 import com.heroku.sdk.jdbc.DatabaseUrl;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 /**
  *
