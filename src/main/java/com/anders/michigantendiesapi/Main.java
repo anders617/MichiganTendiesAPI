@@ -19,12 +19,13 @@ public class Main {
     public static String mDiningData = getMDiningData();
     
     public static String getMDiningData() {
-        Connection connection;
+        Connection connection = null;
         try {
             connection = DatabaseUrl.extract().getConnection();
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery("SELECT * FROM dining_data");
             result.next();
+            connection.close();
             return result.getString("data");
         } catch (Exception e) {
             System.err.println("getMDiningData: " + e);
