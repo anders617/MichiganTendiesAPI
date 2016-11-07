@@ -38,7 +38,7 @@ public class Item {
         } else {
             DiningHallMatch newMatch = new DiningHallMatch(diningHallName);
             newMatch.addMealTime(date, formattedDate, mealName);
-            diningHallMatches.put(name, newMatch);
+            diningHallMatches.put(diningHallName, newMatch);
         }
     }
 
@@ -67,7 +67,7 @@ public class Item {
         JsonArrayBuilder diningHallMatchesArrayBuilder = Json.createArrayBuilder();
         for (String diningHallName : diningHallMatches.keySet()) {
             JsonObject diningHallMatch = diningHallMatches.get(diningHallName).toJson();
-            diningHallMatchesBuilder.add("diningHallMatches", diningHallMatch);
+            diningHallMatchesBuilder.add(diningHallName, diningHallMatch);
             diningHallMatchesArrayBuilder.add(diningHallMatch);
         }
         return Json.createObjectBuilder()

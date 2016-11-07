@@ -36,6 +36,7 @@ public class Main {
     public static void main(String args[]) {
         port(Integer.valueOf(System.getenv("PORT")));
         //staticFiles.location("/public");
+        System.out.println("Serving data on port " + System.getenv("PORT"));
         get("/", (request, response) -> {
             response.header("Content-Type", "application/json");
             response.header("Access-Control-Allow-Origin", "*");
