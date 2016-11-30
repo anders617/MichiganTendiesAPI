@@ -40,6 +40,7 @@ public class Main {
         get("/", (request, response) -> {
             response.header("Content-Type", "application/json");
             response.header("Access-Control-Allow-Origin", "*");
+            response.header("Content-Length", "" + mDiningData.length());
             return mDiningData;
         });
     }
