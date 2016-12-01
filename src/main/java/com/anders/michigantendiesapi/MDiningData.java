@@ -16,19 +16,7 @@ import java.text.*;
 public class MDiningData {
 
     public static final MDiningData M_DINING_DATA = new MDiningData();
-    public static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ") {
-        @Override
-        public StringBuffer format(Date date, StringBuffer toAppendTo, java.text.FieldPosition pos) {
-            StringBuffer toFix = super.format(date, toAppendTo, pos);
-            return toFix.insert(toFix.length() - 2, ':');
-        }
-
-        @Override
-        public Date parse(String source) throws java.text.ParseException {
-            final int split = source.length() - 2;
-            return super.parse(source.substring(0, split - 1) + source.substring(split)); // replace ":" du TimeZone
-        }
-    };
+    public static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
     
     private final Map<String, JsonObject> diningHalls;
     private final Map<String, Item> items;
