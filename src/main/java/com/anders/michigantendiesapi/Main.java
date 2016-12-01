@@ -34,10 +34,9 @@ public class Main {
             mDiningData = data;
             JsonReader reader = Json.createReader(new StringReader(mDiningData));
             JsonObject allData = reader.readObject();
-            MDiningData diningData = new MDiningData(allData);
-            items = diningData.getItemsJson().toString();
-            diningHalls = diningData.getDiningHallsJson().toString();
-            filterableEntries = diningData.getFilterableEntriesJson().toString();
+            items = allData.getJsonObject("items").toString();
+            diningHalls = allData.getJsonObject("diningHalls").toString();
+            filterableEntries = allData.getJsonArray("filterableEntries").toString();
         } catch (Exception e) {
             System.err.println("getMDiningData: " + e);
             mDiningData = "UNABLE TO RETRIEVE DATA";
