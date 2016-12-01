@@ -8,7 +8,6 @@ package com.anders.michigantendiesapi;
 import com.heroku.sdk.jdbc.DatabaseUrl;
 import java.sql.*;
 import static spark.Spark.*;
-import java.util.Scanner;
 
 /**
  *

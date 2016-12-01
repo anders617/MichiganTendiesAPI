@@ -25,11 +25,12 @@ public class UpdateDatabase {
 
         MDiningAPI m = new MDiningAPI();
         m.requestDiningData();
-        System.out.print(MDiningData.M_DINING_DATA.toJson().toString());
+        //System.out.print(MDiningData.M_DINING_DATA.toJson().toString());
+        System.out.println("Retrieved MDiningData succesfully. Updating database...");
         Connection connection = null;
         try {
             connection = DatabaseUrl.extract().getConnection();
-            System.out.println("Connected...");
+            System.out.println("Connected to databse...");
             Statement statement = connection.createStatement();
             statement.executeUpdate("DROP TABLE dining_data");
             statement.executeUpdate("CREATE TABLE dining_data (id INTEGER, data TEXT)");

@@ -55,7 +55,7 @@ public class Item {
     }
 
     public List<DiningHallMatch> getDiningHallMatchesArray() {
-        return new ArrayList(diningHallMatches.keySet());
+        return new ArrayList(diningHallMatches.values());
     }
 
     public JsonObject toJson() {

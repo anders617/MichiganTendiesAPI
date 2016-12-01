@@ -35,6 +35,14 @@ public class DiningHallMatch {
             }
         }
     }
+    
+    public Map<Date, MealTime> getMealTimes() {
+        return mealTimes;
+    }
+    
+    public String getName() {
+        return name;
+    }
 
     public JsonObject toJson() {
         JsonObjectBuilder mealTimesBuilder = Json.createObjectBuilder();

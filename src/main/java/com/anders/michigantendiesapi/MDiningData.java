@@ -66,9 +66,25 @@ public class MDiningData {
         for (String diningHallName : diningHalls.keySet()) {
             diningHallsBuilder.add(diningHallName, diningHalls.get(diningHallName));
         }
+        JsonArrayBuilder filterableEntryBuilder = Json.createArrayBuilder();
+        for(Item item:items.values()) {
+            for(DiningHallMatch diningHallMatch:item.getDiningHallMatchesArray()) {
+                for(MealTime mealTime:diningHallMatch.getMealTimes().values()) {
+                    FilterableEntry entry = new FilterableEntry(
+                            mealTime.getDate(), 
+                            item.getName(), 
+                            diningHallMatch.getName(), 
+                            mealTime.getMealNames(), 
+                            item.getAttributes()
+                    );
+                    filterableEntryBuilder.add(entry.toJson());
+                }
+            }
+        }
         return Json.createObjectBuilder()
                 .add("items", itemsBuilder)
                 .add("diningHalls", diningHallsBuilder)
+                .add("filterableEntries", filterableEntryBuilder)
                 .build();
     }
 }

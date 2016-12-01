@@ -7,36 +7,25 @@ package com.anders.michigantendiesapi;
 
 import java.util.*;
 import javax.json.*;
-import java.text.*;
 
 /**
  *
  * @author Anders
  */
-public class MealTime {
-
+public class FilterableEntry {
     private final Date date;
-    private final String formattedDate;
     private final List<String> mealNames;
+    private final String itemName;
+    private final String diningHallName;
+    private final List<String> attributes;
+    
 
-    public MealTime(Date date, String formattedDate) throws ParseException {
+    public FilterableEntry(Date date, String itemName, String diningHallName, List<String> mealNames, List<String> attributes) {
         this.date = date;
-        this.formattedDate = formattedDate;
-        this.mealNames = new ArrayList();
-    }
-
-    public void addMealName(String mealName) {
-        if (!mealNames.contains(mealName)) {
-            mealNames.add(mealName);
-        }
-    }
-    
-    public Date getDate() {
-        return date;
-    }
-    
-    public List<String> getMealNames() {
-        return mealNames;
+        this.mealNames = mealNames;
+        this.itemName = itemName;
+        this.diningHallName = diningHallName;
+        this.attributes = attributes;
     }
 
     public JsonObject toJson() {
@@ -44,10 +33,16 @@ public class MealTime {
         for (String mealName : mealNames) {
             mealNamesBuilder.add(mealName);
         }
+        JsonArrayBuilder attributesBuilder = Json.createArrayBuilder();
+        for(String attribute : attributes) {
+            attributesBuilder.add(attribute);
+        }
         return Json.createObjectBuilder()
                 .add("date", MDiningData.DATE_FORMAT.format(date))//TODO:Correct date formatting
-                .add("formattedDate", formattedDate)
                 .add("mealNames", mealNamesBuilder)
+                .add("itemName", itemName)
+                .add("diningHallName", diningHallName)
+                .add("attributes", attributesBuilder)
                 .build();
     }
 }
