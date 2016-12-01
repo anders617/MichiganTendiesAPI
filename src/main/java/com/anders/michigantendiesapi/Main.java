@@ -22,7 +22,7 @@ public class Main {
     public static String diningHalls;
     public static String filterableEntries;
     
-    public void getMDiningData() {
+    public static void getMDiningData() {
         Connection connection = null;
         try {
             connection = DatabaseUrl.extract().getConnection();
@@ -50,6 +50,7 @@ public class Main {
     public static void main(String args[]) {
         port(Integer.valueOf(System.getenv("PORT")));
         //staticFiles.location("/public");
+        getMDiningData();
         System.out.println("Serving data on port " + System.getenv("PORT"));
         get("/", (request, response) -> {
             response.header("Content-Type", "application/json");
