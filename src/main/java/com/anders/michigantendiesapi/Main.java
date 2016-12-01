@@ -16,12 +16,12 @@ import static spark.Spark.*;
  * @author Anders
  */
 public class Main {
-    
+
     public static String mDiningData;
     public static String items;
     public static String diningHalls;
     public static String filterableEntries;
-    
+
     public static void getMDiningData() {
         Connection connection = null;
         try {
@@ -40,11 +40,11 @@ public class Main {
             filterableEntries = diningData.getFilterableEntriesJson().toString();
         } catch (Exception e) {
             System.err.println("getMDiningData: " + e);
+            mDiningData = "UNABLE TO RETRIEVE DATA";
+            items = "UNABLE TO RETRIEVE DATA";
+            diningHalls = "UNABLE TO RETRIEVE DATA";
+            filterableEntries = "UNABLE TO RETRIEVE DATA";
         }
-        mDiningData = "UNABLE TO RETRIEVE DATA";
-        items = "UNABLE TO RETRIEVE DATA";
-        diningHalls = "UNABLE TO RETRIEVE DATA";
-        filterableEntries = "UNABLE TO RETRIEVE DATA";
     }
 
     public static void main(String args[]) {
