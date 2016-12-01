@@ -6,7 +6,9 @@
 package com.anders.michigantendiesapi;
 
 import com.heroku.sdk.jdbc.DatabaseUrl;
+import java.io.StringReader;
 import java.sql.*;
+import javax.json.*;
 import static spark.Spark.*;
 
 /**
@@ -15,9 +17,12 @@ import static spark.Spark.*;
  */
 public class Main {
     
-    public static String mDiningData = getMDiningData();
+    public static String mDiningData;
+    public static String items;
+    public static String diningHalls;
+    public static String filterableEntries;
     
-    public static String getMDiningData() {
+    public void getMDiningData() {
         Connection connection = null;
         try {
             connection = DatabaseUrl.extract().getConnection();
@@ -25,11 +30,21 @@ public class Main {
             ResultSet result = statement.executeQuery("SELECT * FROM dining_data");
             result.next();
             connection.close();
-            return result.getString("data");
+            String data = result.getString("data");
+            mDiningData = data;
+            JsonReader reader = Json.createReader(new StringReader(mDiningData));
+            JsonObject allData = reader.readObject();
+            MDiningData diningData = new MDiningData(allData);
+            items = diningData.getItemsJson().toString();
+            diningHalls = diningData.getDiningHallsJson().toString();
+            filterableEntries = diningData.getFilterableEntriesJson().toString();
         } catch (Exception e) {
             System.err.println("getMDiningData: " + e);
         }
-        return "UNABLE TO RETRIEVE DATA";
+        mDiningData = "UNABLE TO RETRIEVE DATA";
+        items = "UNABLE TO RETRIEVE DATA";
+        diningHalls = "UNABLE TO RETRIEVE DATA";
+        filterableEntries = "UNABLE TO RETRIEVE DATA";
     }
 
     public static void main(String args[]) {
@@ -41,6 +56,24 @@ public class Main {
             response.header("Access-Control-Allow-Origin", "*");
             response.header("Content-Length", "" + mDiningData.length());
             return mDiningData;
+        });
+        get("/items", (request, response) -> {
+            response.header("Content-Type", "application/json");
+            response.header("Access-Control-Allow-Origin", "*");
+            response.header("Content-Length", "" + items.length());
+            return items;
+        });
+        get("/dininghalls", (request, response) -> {
+            response.header("Content-Type", "application/json");
+            response.header("Access-Control-Allow-Origin", "*");
+            response.header("Content-Length", "" + diningHalls.length());
+            return diningHalls;
+        });
+        get("/filterableentries", (request, response) -> {
+            response.header("Content-Type", "application/json");
+            response.header("Access-Control-Allow-Origin", "*");
+            response.header("Content-Length", "" + filterableEntries.length());
+            return filterableEntries;
         });
     }
 }
