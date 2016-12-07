@@ -21,11 +21,9 @@ public class UpdateDatabase {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
 
         MDiningAPI m = new MDiningAPI();
         m.requestDiningData();
-        //System.out.print(MDiningData.M_DINING_DATA.toJson().toString());
         System.out.println("Retrieved MDiningData succesfully. Updating database...");
         Connection connection = null;
         try {
