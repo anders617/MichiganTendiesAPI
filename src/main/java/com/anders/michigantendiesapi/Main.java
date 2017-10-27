@@ -89,6 +89,8 @@ public class Main {
                         break;
                     }
                 }
+            } else {
+                itemString = item.toString();
             }
             response.header("Content-Type", "application/json");
             response.header("Access-Control-Allow-Origin", "*");
