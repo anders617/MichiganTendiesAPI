@@ -78,6 +78,8 @@ public class Main {
             return filterableEntries;
         });
         get("/item", (request, response) -> {
+            System.out.println(request.toString());
+            System.out.println(request.queryParams("name"));
             response.header("Content-Type", "application/json");
             response.header("Access-Control-Allow-Origin", "*");
             String item = itemsJson.getJsonObject(request.queryParams("name")).toString();
