@@ -21,6 +21,7 @@ public class Main {
     public static String items;
     public static String diningHalls;
     public static String filterableEntries;
+    public static JsonObject itemsJson;
 
     public static void getMDiningData() {
         Connection connection = null;
@@ -34,6 +35,7 @@ public class Main {
             mDiningData = data;
             JsonReader reader = Json.createReader(new StringReader(mDiningData));
             JsonObject allData = reader.readObject();
+            itemsJson = allData.getJsonObject("items");
             items = allData.getJsonObject("items").toString();
             diningHalls = allData.getJsonObject("diningHalls").toString();
             filterableEntries = allData.getJsonArray("filterableEntries").toString();
@@ -74,6 +76,13 @@ public class Main {
             response.header("Access-Control-Allow-Origin", "*");
             response.header("Content-Length", "" + filterableEntries.length());
             return filterableEntries;
+        });
+        get("/item", (request, response) -> {
+            response.header("Content-Type", "application/json");
+            response.header("Access-Control-Allow-Origin", "*");
+            String item = itemsJson.getJsonObject(request.queryParams("name")).toString();
+            response.header("Content-Length", "" + item.length());
+            return item;
         });
     }
 }
