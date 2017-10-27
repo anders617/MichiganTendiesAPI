@@ -78,18 +78,22 @@ public class Main {
             return filterableEntries;
         });
         get("/item", (request, response) -> {
-            System.out.println(request.toString());
-            System.out.println(request.queryParams("name"));
-            //System.out.println(itemsJson.toString());
-            System.out.println(itemsJson.getJsonObject(request.queryParams("name")).toString());
+            String name = request.queryParams("name").toLowerCase();
+            String itemString = "Item Not Found :(";
+            JsonObject item = itemsJson.getJsonObject(name);
+            if(item == null) {
+                for(String itemName : itemsJson.keySet()) {
+                    if(itemName.contains(name)) {
+                        item = itemsJson.getJsonObject(itemName);
+                        itemString = item.toString();
+                        break;
+                    }
+                }
+            }
             response.header("Content-Type", "application/json");
             response.header("Access-Control-Allow-Origin", "*");
-            String item = itemsJson.getJsonObject(request.queryParams("name")).toString();
-            System.out.println(request.toString());
-            System.out.println(request.queryParams("name"));
-            System.out.println(item);
-            response.header("Content-Length", "" + item.length());
-            return item;
+            response.header("Content-Length", "" + itemString.length());
+            return itemString;
         });
     }
 }
