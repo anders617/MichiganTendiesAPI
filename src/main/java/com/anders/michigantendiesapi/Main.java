@@ -79,7 +79,7 @@ public class Main {
         });
         get("/item", (request, response) -> {
             String name = request.queryParams("name").toLowerCase();
-            String itemString = "Item Not Found :(";
+            String itemString = null;
             JsonObject item = itemsJson.getJsonObject(name);
             if(item == null) {
                 for(String itemName : itemsJson.keySet()) {
@@ -92,7 +92,12 @@ public class Main {
             } else {
                 itemString = item.toString();
             }
-            response.header("Content-Type", "application/json");
+            if(itemString == null) {
+                itemString = "Item Not Found :(";
+                response.header("Content-Type", "text/plain");
+            } else {
+                response.header("Content-Type", "application/json");
+            }
             response.header("Access-Control-Allow-Origin", "*");
             response.header("Content-Length", "" + itemString.length());
             return itemString;
