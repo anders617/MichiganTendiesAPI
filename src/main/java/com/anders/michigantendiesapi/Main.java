@@ -80,7 +80,7 @@ public class Main {
         get("/item", (request, response) -> {
             System.out.println(request.toString());
             System.out.println(request.queryParams("name"));
-            System.out.println(itemsJson.toString());
+            //System.out.println(itemsJson.toString());
             System.out.println(itemsJson.getJsonObject(request.queryParams("name")).toString());
             response.header("Content-Type", "application/json");
             response.header("Access-Control-Allow-Origin", "*");
