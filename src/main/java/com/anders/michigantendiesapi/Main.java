@@ -81,6 +81,9 @@ public class Main {
             response.header("Content-Type", "application/json");
             response.header("Access-Control-Allow-Origin", "*");
             String item = itemsJson.getJsonObject(request.queryParams("name")).toString();
+            System.out.println(request.toString());
+            System.out.println(request.queryParams("name"));
+            System.out.println(item);
             response.header("Content-Length", "" + item.length());
             return item;
         });
